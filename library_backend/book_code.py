@@ -33,48 +33,8 @@ class Book:
         return self._book_id
 
 
-class Customer:
-    def __init__(self, customer_id: int, customer_name: dict, address: classmethod, email: str, birth_day: datetime):
-        self._birth_day = birth_day
-        self._email = email
-        self._address = address
-        self._customer_name = customer_name
-        self._customer_id = customer_id
-
-    def get_birth_day(self):
-        return self._birth_day
-
-    def get_email(self):
-        return self._email
-
-    def set_email(self, new_email: str):
-        if library_test.useful_function.isvalid_email(new_email):
-            self._email = new_email
-
-    def get_address(self):
-        return self._address
-
-    def get_customer_name(self):
-        return self._customer_name
-
-    def get_customer_id(self):
-        return self._customer_id
 
 
-class Loan:
-    def __init__(self, costumer_id: int, book_id: int, loan_date: datetime):
-        self._costumer_id = costumer_id
-        self._book_id = book_id
-        self._loan_date = loan_date
-
-    def time_loan_2_max_days(self) -> datetime:
-        if Customer == 1:
-            max_time_loan = datetime.timedelta(days=10)
-        elif type_loan == 2:
-            max_time_loan = datetime.timedelta(days=5)
-        else:
-            max_time_loan = datetime.timedelta(days=2)
-        return max_time_loan
 
 
 
