@@ -1,6 +1,6 @@
 import datetime
 import re
-
+from library_class import *
 import library_test.useful_function
 from library_test import *
 
@@ -67,6 +67,14 @@ class Loan:
         self._book_id = book_id
         self._loan_date = loan_date
 
+    def time_loan_2_max_days(self) -> datetime:
+        if Customer == 1:
+            max_time_loan = datetime.timedelta(days=10)
+        elif type_loan == 2:
+            max_time_loan = datetime.timedelta(days=5)
+        else:
+            max_time_loan = datetime.timedelta(days=2)
+        return max_time_loan
 
 
 
