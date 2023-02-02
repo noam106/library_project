@@ -1,4 +1,7 @@
 import library_test
+import datetime
+
+
 class Customer:
     def __init__(self, customer_id: int, customer_name: dict, address: classmethod, email: str, birth_day: datetime):
         self._birth_day = birth_day
