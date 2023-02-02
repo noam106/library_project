@@ -69,9 +69,10 @@ class Customer:
 
 
 class Loan:
-    def __init__(self, costumer_id: int, book_id: int):
+    def __init__(self, costumer_id: int, book_id: int, loan_date: datetime):
         self._costumer_id = costumer_id
-        self._book_id = Book.get_book_id()
-
+        self._book_id = book_id
+        self._loan_date = loan_date
+        self.return_date =
 
 

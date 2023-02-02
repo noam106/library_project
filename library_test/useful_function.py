@@ -51,7 +51,7 @@ class Address:
         return self._zipcode
 
 
-def is_valid_bday(user_bday: str) -> str:
+def is_valid_bday(user_bday: str) -> bool:
     if re.search(
         "^([1-9]|0[1-9]|1[0-9]|2[0-9]|3[0-1])(\.|-|/)([1-9]|0[1-9]|1[0-2])(\.|-|/)"
         "([0-9][0-9]|19[0-9][0-9]|20[0-9][0-9])$|^([0-9][0-9]|19[0-9][0-9]|20[0-9]"
@@ -60,4 +60,6 @@ def is_valid_bday(user_bday: str) -> str:
         return True
     else:
         False
-print(is_valid_bday('1.5.99'))
+# print(is_valid_bday('1.5.99'))
+
+def loan_type_to_date()
