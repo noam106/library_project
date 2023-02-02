@@ -62,4 +62,4 @@ def is_valid_bday(user_bday: str) -> bool:
         False
 # print(is_valid_bday('1.5.99'))
 
-def loan_type_to_date()
+def date_to_return(days_to_loan: datetime) ->datetime:

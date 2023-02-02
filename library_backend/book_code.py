@@ -12,14 +12,7 @@ class Book:
         self._author = author
         self._book_name = book_name
         self._book_id = book_id
-        if self._type_of_loan not in (1, 2, 3):
-            raise  #write a raise condition
-        if self._type_of_loan == 1:
-            self._max_time_loan = datetime.timedelta(days=10)
-        elif self._type_of_loan == 2:
-            self._max_time_loan = datetime.timedelta(days=5)
-        else:
-            self._max_time_loan = datetime.timedelta(days=2)
+        self._type_of_loan = type_of_loan
 
     def get_type_of_loan(self):
         return self._type_of_loan
@@ -73,6 +66,7 @@ class Loan:
         self._costumer_id = costumer_id
         self._book_id = book_id
         self._loan_date = loan_date
-        self.return_date =
+
+
 
 
