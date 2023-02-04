@@ -11,7 +11,7 @@ class Library:
         self._library_name = library_name
         self._books: dict[str, Book] = {}
         self._costumers: dict[str, Customer] = {}
-        self._loans: dict[str, list[Loan]] = {}
+        self._loans: dict[str, Loan] = {}
         self._returned_loans: dict[str, list[Loan]] = {}
         self._late_returned_loan:  dict[str, list[Loan]] = {}
         self._costumer2loan: dict[str, set[Loan]] = {}
@@ -67,12 +67,15 @@ class Library:
     def get_address(self):
         return self._address
 
-    def add_customer(self, customer_id: str, customer_name: dict, address: classmethod, email: str, birth_day: datetime):
+    def add_customer(self, customer_id: str, customer_name: dict, address: classmethod,
+                     email: str, birth_day: datetime):
         if customer_id in self._costumers:
             return False
         else:
             customer = Customer(customer_id, customer_name, address, email, birth_day)
             self._costumers[customer_id] = customer
+            self._returned_loans[customer_id] = []
+            self._late_returned_loan[customer_id] = []
             return True
 
     def add_book(self, book_id: str, book_name: str, author: dict, year_publish: str, type_of_loan: int):
@@ -89,18 +92,27 @@ class Library:
         if customer_id not in self._costumers:
             return False
         if customer_id in self._late_returned_loan:
-
+            for loan in self._returned_loans[customer_id]:
+                if loan.get_return_date() + datetime.timedelta(weeks=2) > datetime.datetime.now():
+                    return False
         else:
             book_to_loan = Loan(customer_id, book_id, datetime.datetime.now(), self._books[book_id].get_type_of_loan())
             self._loans[book_id] = book_to_loan
             return True
 
-    def return_book(self, book_id: str) -> bool:
+    def return_book(self, book_id: str) -> str:
+        return_date = datetime.datetime.now()
         if book_id in self._loans:
-            self._books.pop(book_id)
-            return True
-        else:
-            return False
+            transfer_loan = self._loans[book_id]
+            self._loans.pop(book_id)
+            if transfer_loan.get_max_return_date() > return_date:
+                self._returned_loans[transfer_loan.get_customer()].append(transfer_loan)
+                return 'returned book essences'
+            elif transfer_loan.get_max_return_date() < return_date:
+                self._late_returned_loan[transfer_loan.get_customer()].append(transfer_loan)
+                return 'Customer returned book LATE!!! Unlease the librarian in you and kill him.'
+            else:
+                return 'The book is not loaned, you cant return it.'
 
     def display_all_books(self):
         all_book_list = []
@@ -114,12 +126,16 @@ class Library:
             all_customer_list.append(customer)
         return all_customer_list
 
-    def display_all_loans(self):
-        all_loans_list = []
+    def display_all_loans(self) -> dict:
+        all_loans_list = {'loaned': [],
+                          'late returned': [],
+                          'returned': []}
         for loan in self._loans.values():
-            all_loans_list.append(loan)
-        for returned in self._returned_loans:
-            all_loans_list.append(returned)
+            all_loans_list['loaned'].append(loan)
+        for returned in self._returned_loans.values():
+            all_loans_list['returned'].append(returned)
+        for late in self._late_returned_loan.values():
+            all_loans_list['late returned'].append(late)
         return all_loans_list
 
     def display_customer_loans(self, customer_id: str):
@@ -133,8 +149,19 @@ class Library:
             return False
 
     def remove_book_from_library(self, book_id: str) -> bool:
-        if book_id not in self._books:
+        if book_id in self._books:
             self._books.pop(book_id)
+            for book in self._loans:
+                if book == book_id:
+                    self._loans.pop(book_id)
+            for customer in self._returned_loans.values():
+                for loan in customer:
+                    if loan.get_book_id() == book_id:
+                        customer.pop(customer.index(loan))
+            for customer in self._late_returned_loan.values():
+                for loan in customer:
+                    if loan.get_book_id() == book_id:
+                        customer.pop(customer.index(loan))
             return True
         else:
             return False
