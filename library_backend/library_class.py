@@ -138,6 +138,15 @@ class Library:
             all_loans_list['late returned'].append(late)
         return all_loans_list
 
+    def get_loaned_book(self):
+        return self._loans
+
+    def get_returned_loans(self):
+        return self._returned_loans
+
+    def get_late_returned(self):
+        return self._returned_loans
+
     def display_customer_loans(self, customer_id: str):
         if customer_id in self._costumers:
             all_customer_loans_list = []
