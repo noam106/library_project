@@ -11,7 +11,9 @@ class Library:
         self._library_name = library_name
         self._books: dict[str, Book] = {}
         self._costumers: dict[str, Customer] = {}
-        self._loans: dict[str, Loan] = {}
+        self._loans: dict[str, list[Loan]] = {}
+        self._returned_loans: dict[str, list[Loan]] = {}
+        self._late_returned_loan:  dict[str, list[Loan]] = {}
         self._costumer2loan: dict[str, set[Loan]] = {}
 
     def get_books(self):
@@ -44,8 +46,6 @@ class Library:
     def get_customer_by_id(self, customer_id: str) -> Customer:
         if customer_id in self._costumers:
             return self._costumers[customer_id]
-        else:
-            return False
 
     def get_customer_by_first_name(self, customer_first_name) -> list[Customer]:
         ret_val = []
@@ -88,6 +88,8 @@ class Library:
             return False
         if customer_id not in self._costumers:
             return False
+        if customer_id in self._late_returned_loan:
+
         else:
             book_to_loan = Loan(customer_id, book_id, datetime.datetime.now(), self._books[book_id].get_type_of_loan())
             self._loans[book_id] = book_to_loan
@@ -114,17 +116,19 @@ class Library:
 
     def display_all_loans(self):
         all_loans_list = []
-        for loan in self._loans:
+        for loan in self._loans.values():
             all_loans_list.append(loan)
+        for returned in self._returned_loans:
+            all_loans_list.append(returned)
         return all_loans_list
 
     def display_customer_loans(self, customer_id: str):
         if customer_id in self._costumers:
-            all_costomer_loans_list = []
+            all_customer_loans_list = []
             loans = self._costumer2loan[customer_id]
             for loan in loans:
-                all_costomer_loans_list.append(loan)
-            return all_costomer_loans_list
+                all_customer_loans_list.append(loan)
+            return all_customer_loans_list
         else:
             return False
 
