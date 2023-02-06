@@ -14,5 +14,14 @@ if __name__ == '__main__':
                             'Insert your choice here:\n')
         if user_choice not in ('1', '2', '3', '4', '5', '6', '#'):
             print('your choice is invalid, please try again: \n')
-        else:
-            break
+        elif user_choice == 1:
+            user_add_choice = None
+            while user_add_choice not in (1, 2):
+                user_add_choice = input('What would you lik to add:\n'
+                                        'To add a book insert 1\n'
+                                        'To add a customer insert 2:\n'
+                                        '')
+                if user_add_choice == 1:
+                    customer_last_name = input('Insert customer last name: ')
+                    customer_first_name = input('Insert customer first name: ')
+                    customer_id = input('Insert customer id number: ')
