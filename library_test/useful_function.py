@@ -54,7 +54,7 @@ def is_str(str_to_check: str) -> bool:
     else:
         return False
 
-
+def create_address(city: str, street_name: str, house_num: str, zipcode: str)
 # print(is_digit('159h9'))
 
 # def date_to_return(days_to_loan: datetime) ->datetime:
