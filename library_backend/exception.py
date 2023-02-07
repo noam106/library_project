@@ -8,6 +8,18 @@ class BookExistsError(LibraryException):
         self._book_num = book_num
 
 
+class BookAlreadyLoaned(LibraryException):
+    def __init__(self, book_id: str):
+        super().__init__()
+        self._book_id = book_id
+
+
+class LateReturnPunishment(LibraryException):
+    def __init__(self, customer_id):
+        super().__init__()
+        self._customer_id = customer_id
+
+
 class CustomerExistsError(LibraryException):
     def __init__(self, customer_id: str):
         super().__init__()

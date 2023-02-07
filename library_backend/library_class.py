@@ -86,31 +86,33 @@ class Library:
 
     def loan_book(self, book_id: str, customer_id: str) -> bool:
         if book_id in self._loans:
-            return False
+            raise exception.BookAlreadyLoaned(book_id)
         if customer_id not in self._costumers:
-            return False
+            raise exception.CustomerExistsError(customer_id)
+        if book_id not in self._books:
+            raise exception.BookExistsError(book_id)
         if customer_id in self._late_returned_loan:
             for loan in self._returned_loans[customer_id]:
                 if loan.get_return_date() + datetime.timedelta(weeks=2) > datetime.datetime.now():
-                    return False
+                    raise exception.LateReturnPunishment(customer_id)
         else:
             book_to_loan = Loan(customer_id, book_id, datetime.datetime.now(), self._books[book_id].get_type_of_loan())
             self._loans[book_id] = book_to_loan
             return True
 
-    def return_book(self, book_id: str) -> str:
+    def return_book(self, book_id: str):
         return_date = datetime.datetime.now()
-        if book_id in self._loans:
+        if book_id not in self._loans:
+            raise exception.BookExistsError(book_id)
+        else:
             transfer_loan = self._loans[book_id]
             self._loans.pop(book_id)
             if transfer_loan.get_max_return_date() > return_date:
                 self._returned_loans[transfer_loan.get_customer()].append(transfer_loan)
-                return 'returned book essences'
+                return True
             elif transfer_loan.get_max_return_date() < return_date:
                 self._late_returned_loan[transfer_loan.get_customer()].append(transfer_loan)
-                return 'Customer returned book LATE!!! Unlease the librarian in you and kill him.'
-            else:
-                return 'The book is not loaned, you cant return it.'
+                raise exception.LateReturnPunishment(book_id)
 
     def display_all_books(self):
         all_book_list = []

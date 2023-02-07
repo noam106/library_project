@@ -1,6 +1,7 @@
 import library_backend.customer_code
 from library_test import useful_function
 from library_backend import library_class, address_class
+from library_backend import loan_code
 
 
 def create_address():
@@ -74,8 +75,5 @@ def add_a_book():
     return book
 
 
-def loan_a_book():
-    book_id = input('Enter the the book ID number: ')
-    customer_id = input('Enter customer ID number: ')
 
 

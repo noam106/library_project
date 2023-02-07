@@ -49,6 +49,49 @@ if __name__ == '__main__':
                                 print(f'The customer ID {e} is already in the system try again: ')
                             except exception.LibraryException as e:
                                 print('something went wrong please try again')
+                    elif user_add_choice == "#":
+                        break
+            elif user_choice == "2":
+                user_loan_choice = None
+                while user_loan_choice not in (1, 2, '#'):
+                    user_loan_choice = input('To loan a book insert 1: \n'
+                                             'To return a book insert 2: ')
+                    if user_loan_choice == '1':
+                        while True:
+                            try:
+                                customer_id = input('Insert the customer ID: ')
+                                book_id = input('Insert book ID: ')
+                                library.loan_book(book_id, customer_id)
+                                print('Enjoy your reading, dont forget to return in time.')
+                                break
+                            except exception.CustomerExistsError(customer_id) as e:
+                                print(f'The customer ID {e} is not in the system try again: ')
+                            except exception.BookExistsError(book_id) as e:
+                                print(f'The book ID number dose not exists, try again: ')
+                            except exception.BookAlreadyLoaned(book_id) as e:
+                                print('The book is already loaned, you cant loaned it!!! ')
+                            except exception.LateReturnPunishment(customer_id) as e:
+                                print(f'Dear {library.get_customer_by_id(customer_id).get_customer_first_name()}'
+                                      f' you were late to return your latest loaned book therefore you cant loan this'
+                                      f' book. You got punished and i got the BONUS!!! ')
+                            except exception.LibraryException() as e:
+                                print('something went wrong please try again')
+                    elif user_loan_choice == '2':
+                        while True:
+                            try:
+                                book_id = input('Please enter the book number you wish to return: ')
+                                library.return_book(book_id)
+                                print('book returned!')
+                                break
+                            except exception.BookExistsError(book_id) as e:
+                                print(f'Book number{e} is not loaned, so.... you cant return it.')
+                            except exception.LateReturnPunishment(book_id) as e:
+                                print('Customer returned book LATE!!! Unlease the librarian in you and kill him.'
+                                      'Just kidding you cant loan another book for thr next two weeks.'
+                                      'You got punish and i got the BONUS!!!')
+                            except exception.LibraryException() as e:
+                                print('something went wrong please try again')
+
 
 
 
