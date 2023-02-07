@@ -8,6 +8,12 @@ class BookExistsError(LibraryException):
         self._book_num = book_num
 
 
+class CustomerExistsError(LibraryException):
+    def __init__(self, customer_id: str):
+        super().__init__()
+        self._customer_id = customer_id
+
+
 class NotNumber(LibraryException):
     def __init__(self, string: str):
         super().__init__()

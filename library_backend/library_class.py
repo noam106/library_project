@@ -1,13 +1,13 @@
 from library_backend.book_code import Book
 from library_backend.customer_code import Customer
 import datetime
-import exception
-
+from library_backend import exception
+from library_backend import address_class
 from library_backend.loan_code import Loan
 
 
 class Library:
-    def __init__(self, library_name: str, address: classmethod):
+    def __init__(self, library_name: str, address: address_class.Address):
         self._address = address
         self._library_name = library_name
         self._books: dict[str, Book] = {}
@@ -68,23 +68,20 @@ class Library:
     def get_address(self):
         return self._address
 
-    def add_customer(self, customer_id: str, customer_name: dict, address: classmethod,
-                     email: str, birth_day: datetime):
-        if customer_id in self._costumers:
-            return False
+    def add_customer(self, customer: Customer):
+        if customer.get_customer_id() in self._costumers:
+            raise exception.CustomerExistsError
         else:
-            customer = Customer(customer_id, customer_name, address, email, birth_day)
-            self._costumers[customer_id] = customer
-            self._returned_loans[customer_id] = []
-            self._late_returned_loan[customer_id] = []
+            self._costumers[customer.get_customer_id()] = customer
+            self._returned_loans[customer.get_customer_id()] = []
+            self._late_returned_loan[customer.get_customer_id()] = []
             return True
 
-    def add_book(self, book_id: str, book_name: str, author: dict, year_publish: str, type_of_loan: int):
-        if book_id in self._books:
-            raise exception.BookExistsError(book_id)
+    def add_book(self, book: Book):
+        if book.get_book_id() in self._books:
+            raise exception.BookExistsError(book.get_book_id())
         else:
-            book = Book(book_id, book_name, author, year_publish, type_of_loan)
-            self._books[book_id] = book
+            self._books[book.get_book_id()] = book
             return True
 
     def loan_book(self, book_id: str, customer_id: str) -> bool:

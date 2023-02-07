@@ -1,6 +1,6 @@
 import library_backend.customer_code
 from library_test import useful_function
-from library_backend import address_class
+from library_backend import library_class, address_class
 
 
 def create_address():
@@ -62,19 +62,20 @@ def add_a_book():
             print('There is something wrong with the author name please try again: ')
         elif useful_function.is_digit(year_publish) is False:
             print('There is something wrong with the year of book publish, try again: ')
-        elif book_type not in (1, 2, 3):
+        elif book_type not in ("1", "2", "3"):
             print('Book type can be only "1", "2", or "3". Please try again: ')
         else:
             author_name_dict = {'first_name': author_first_name,
                                 'last_name': author_last_name}
-
-
-
-
-
+            book = library_backend.library_class.Book(book_id, book_name,
+                                                      author_name_dict, year_publish, book_type)
+            print('all good, checking if the book in the system...')
+            break
+    return book
 
 
 def loan_a_book():
     book_id = input('Enter the the book ID number: ')
     customer_id = input('Enter customer ID number: ')
+
 

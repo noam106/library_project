@@ -4,7 +4,7 @@ import library_test.useful_function
 from library_test import *
 
 class Book:
-    def __init__(self, book_id: str, book_name: str, author: dict, year_publish: str, type_of_loan: int):
+    def __init__(self, book_id: str, book_name: str, author: dict, year_publish: str, type_of_loan: str):
         self._type_of_loan = type_of_loan
         self._year_publish = year_publish
         self._author = author
