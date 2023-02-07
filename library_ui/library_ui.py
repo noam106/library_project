@@ -22,13 +22,6 @@ if __name__ == '__main__':
                                         'To add a customer insert 2:\n'
                                         '')
                 if user_add_choice == 1:
-                    customer_last_name = input('Insert customer last name: ')
-                    customer_first_name = input('Insert customer first name: ')
-                    customer_id = input('Insert customer id number: ')
-                    customer_email = input('Insert customer email: ')
-                    customer_bday = input('Insert customer birth day in the falling order DD/MM/YYYY: ')
-                    customer_address_city = input('Insert customer city address: ')
-                    customer_address_street = input('Insert customer street address: ')
-                    customer_house_num = input('Insert customer house number: ')
-                    customer_zipcode = input('Insert customer zipcode: ')
+
+
 

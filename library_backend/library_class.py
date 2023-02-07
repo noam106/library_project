@@ -1,6 +1,7 @@
 from library_backend.book_code import Book
 from library_backend.customer_code import Customer
 import datetime
+import exception
 
 from library_backend.loan_code import Loan
 
@@ -80,7 +81,7 @@ class Library:
 
     def add_book(self, book_id: str, book_name: str, author: dict, year_publish: str, type_of_loan: int):
         if book_id in self._books:
-            return False
+            raise exception.BookExistsError(book_id)
         else:
             book = Book(book_id, book_name, author, year_publish, type_of_loan)
             self._books[book_id] = book

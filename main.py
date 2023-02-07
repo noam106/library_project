@@ -1,16 +1,20 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
+import pickle
+import os
+import library_backend
 if __name__ == '__main__':
-    print_hi('PyCharm')
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    library = None
+    if os.path.exists('library.pickle'):
+        with open('library.pickle', 'rb') as f:
+            library = pickle.load(f)
+    else:
+        library =Library()
+
+    try:
+        # very long code with menus etc
+        pass
+    except:
+        print("error occurred, saving and exiting")
+    finally:
+        with open('library.pickle', 'wb') as f:
+            pickle.dump(library, f)

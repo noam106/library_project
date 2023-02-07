@@ -4,7 +4,7 @@ from library_test import useful_function
 
 
 class Customer:
-    def __init__(self, customer_id: str, customer_name: dict, address: classmethod, email: str, birth_day: datetime):
+    def __init__(self, customer_id: str, customer_name: dict, address: classmethod, email: str, birth_day: str):
         self._birth_day = birth_day
         self._email = email
         self._address = address

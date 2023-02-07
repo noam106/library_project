@@ -1,26 +1,16 @@
 import re
 import datetime
-
-regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+from library_backend import customer_code
+from library_backend import address_class
+from library_backend import exception
 
 
 def isvalid_email(email) -> bool:
+    regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
     if re.fullmatch(regex, email):
         return True
     else:
         return False
-
-
-# def time_loan_2_max_days(type_loan: int) -> datetime:
-#     if type_loan not in (1, 2, 3):
-#         raise  # write a raise condition
-#     if type_loan == 1:
-#         max_time_loan = datetime.timedelta(days=10)
-#     elif type_loan == 2:
-#         max_time_loan = datetime.timedelta(days=5)
-#     else:
-#         max_time_loan = datetime.timedelta(days=2)
-#     return max_time_loan
 
 
 def is_valid_name(name_str: str) -> bool:
@@ -31,14 +21,10 @@ def is_valid_name(name_str: str) -> bool:
 
 
 def is_valid_bday(user_bday: str) -> bool:
-    if re.search(
-        "^([1-9]|0[1-9]|1[0-9]|2[0-9]|3[0-1])(\.|-|/)([1-9]|0[1-9]|1[0-2])(\.|-|/)"
-        "([0-9][0-9]|19[0-9][0-9]|20[0-9][0-9])$|^([0-9][0-9]|19[0-9][0-9]|20[0-9]"
-        "[0-9])(\.|-|/)([1-9]|0[1-9]|1[0-2])(\.|-|/)([1-9]|0[1-9]|1[0-9]|2[0-9]|3[0-1])$",
-        user_bday):
+    if re.search('^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$', user_bday):
         return True
     else:
-        False
+        return False
 
 
 def is_digit(str_to_check: str) -> bool:
@@ -48,13 +34,29 @@ def is_digit(str_to_check: str) -> bool:
         return False
 
 
-def is_str(str_to_check: str) -> bool:
+def is_str_valid(str_to_check: str):
     if re.fullmatch('[A-Za-z]*', str_to_check):
         return True
     else:
         return False
 
-def create_address(city: str, street_name: str, house_num: str, zipcode: str)
-# print(is_digit('159h9'))
 
-# def date_to_return(days_to_loan: datetime) ->datetime:
+# def create_address():
+#     while True:
+#         customer_address_city = input('Insert customer city address: ')
+#         customer_address_street = input('Insert customer street address: ')
+#         customer_house_num = input('Insert customer house number: ')
+#         customer_zipcode = input('Insert customer zipcode: ')
+#
+#         if is_digit(customer_zipcode) is False or is_digit(customer_house_num) is False or is_str_valid(customer_address_street) is False or is_str_valid(customer_address_city) is False:
+#             print('one of your inputs is not valid, please try again: ')
+#         else:
+#             break
+#
+#     customer_address = address_class.Address(customer_address_street, customer_address_city,
+#                                                      customer_zipcode,customer_house_num)
+#     print('address created')
+#     return customer_address
+# print(is_valid_bday('12/13/5454'))
+
+

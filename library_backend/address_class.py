@@ -1,3 +1,4 @@
+
 class Address:
 
     def __init__(self, street: str, city: str, zipcode: str, house_num: str):
@@ -17,3 +18,4 @@ class Address:
 
     def get_zipcode(self):
         return self._zipcode
+
