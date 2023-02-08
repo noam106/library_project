@@ -20,7 +20,7 @@ def create_address() -> address_class.Address :
             break
 
     customer_address = address_class.Address(customer_address_street, customer_address_city,
-                                                     customer_zipcode, customer_house_num)
+                                             customer_zipcode, customer_house_num)
     print('address created')
     return customer_address
 
