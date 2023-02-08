@@ -1,6 +1,9 @@
 import pickle
 import os
+
+import frontend.input_function
 import library_backend
+from frontend import *
 if __name__ == '__main__':
 
     library = None
@@ -8,7 +11,9 @@ if __name__ == '__main__':
         with open('library.pickle', 'rb') as f:
             library = pickle.load(f)
     else:
-        library =Library()
+        print('Hello, this the first time you start library program.')
+        library = frontend.input_function.start_library()
+
 
     try:
         # very long code with menus etc

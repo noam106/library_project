@@ -7,8 +7,8 @@ from library_backend.loan_code import Loan
 
 
 class Library:
-    def __init__(self, library_name: str, address: address_class.Address):
-        self._address = address
+    def __init__(self, library_name: str, city: str):
+        self._address = city
         self._library_name = library_name
         self._books: dict[str, Book] = {}
         self._costumers: dict[str, Customer] = {}
