@@ -47,3 +47,9 @@ class NotValidDate(LibraryException):
 class NotValidEmail(LibraryException):
     pass
 
+
+class CantRemoveCustomer(LibraryException):
+    def __init__(self, customer_id: str):
+        super().__init__()
+        self._customer_id = customer_id
+

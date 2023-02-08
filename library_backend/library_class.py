@@ -148,17 +148,19 @@ class Library:
         return self._returned_loans
 
     def display_customer_loans(self, customer_id: str):
-        if customer_id in self._costumers:
+        if customer_id not in self._costumers:
+            raise exception.CustomerExistsError
+        else:
             all_customer_loans_list = []
             loans = self._costumer2loan[customer_id]
             for loan in loans:
                 all_customer_loans_list.append(loan)
             return all_customer_loans_list
-        else:
-            return False
 
     def remove_book_from_library(self, book_id: str) -> bool:
-        if book_id in self._books:
+        if book_id not in self._books:
+            raise exception.BookExistsError(book_id)
+        else:
             self._books.pop(book_id)
             for book in self._loans:
                 if book == book_id:
@@ -172,18 +174,14 @@ class Library:
                     if loan.get_book_id() == book_id:
                         customer.pop(customer.index(loan))
             return True
-        else:
-            return False
 
     def remove_customer(self, customer_id: str) -> bool:
-        if customer_id in self._costumers and customer_id not in self._loans:
+        if customer_id not in self._costumers:
+            raise exception.CustomerExistsError(customer_id)
+        elif customer_id in self._loans:
+            raise exception.CantRemoveCustomer(customer_id)
+        else:
             self._costumers.pop(customer_id)
             return True
-        else:
-            return False
 
 
-# if __name__ == '__main__':
-#     jfh = Book('123456', 'noam', {'dfg': 'dfg'}, '1983', 3)
-#
-#     print(Library.time_loan_2_max_days('123456', '123456'))
