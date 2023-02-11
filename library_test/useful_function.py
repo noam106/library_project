@@ -35,7 +35,7 @@ def is_digit(str_to_check: str) -> bool:
 
 
 def is_str_valid(str_to_check: str):
-    if re.fullmatch('[A-Za-z]*', str_to_check):
+    if re.fullmatch('[A-Za-z ]*', str_to_check):
         return True
     else:
         return False

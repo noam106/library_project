@@ -181,12 +181,13 @@ def find_by_first_or_last_name(search_value: str) -> str:
 
 
 def start_library():
-    library_name = input('Enter your library name: ')
-    city_library = input('Enter you library city: ')
     while True:
+        library_name = input('Enter your library name: ')
+        city_library = input('Enter you library city: ')
+
         if useful_function.is_str_valid(library_name) is False or useful_function.is_str_valid(city_library) is False:
             print('please try again.')
         else:
-            library = library_class.Library(library_name,city_library)
+            library = library_class.Library(library_name, city_library)
             break
     return library
