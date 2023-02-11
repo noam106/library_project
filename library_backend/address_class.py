@@ -7,6 +7,9 @@ class Address:
         self._house_num = house_num
         self._zipcode = zipcode
 
+    def __str__(self):
+        return f'{self._house_num} {self._street} {self._city} {self._zipcode}'
+
     def get_street(self):
         return self._street
 
