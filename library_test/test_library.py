@@ -18,7 +18,9 @@ class CustomerClassTest(unittest.TestCase):
         self.assertEqual(self.customer1.get_customer_id(), '123456789')
         self.assertEqual(self.customer1.get_customer_first_name(), 'noam')
         self.assertEqual(self.customer1.get_customer_last_name(), 'cohen')
-        self.assertEqual(self.customer1.)
+        self.assertEqual(self.customer1.get_email(), 'noam.noam@gmail.com')
+        self.assertEqual(self.customer1.get_birth_day(), '06.02.1983')
+        self.assertEqual(self.customer1.set_email('noamcohen@gmail.com'), 'noamcohen@gmail.com')
 
 
     def test_start_library(self):
