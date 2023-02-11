@@ -2,6 +2,7 @@ import datetime
 
 import library_backend.address_class
 from library_test import useful_function
+from library_backend import exception
 
 
 class Customer:
@@ -26,7 +27,9 @@ class Customer:
         return self._email
 
     def set_email(self, new_email: str):
-        if useful_function.isvalid_email(new_email):
+        if useful_function.isvalid_email(new_email) is False:
+            raise exception.NotValidEmail()
+        else:
             self._email = new_email
 
     def get_address(self):

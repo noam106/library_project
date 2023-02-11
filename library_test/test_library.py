@@ -2,6 +2,7 @@ import unittest
 from library_backend import address_class
 import library_backend.library_class
 from frontend import input_function
+from library_backend import exception
 
 
 class CustomerClassTest(unittest.TestCase):
@@ -20,7 +21,8 @@ class CustomerClassTest(unittest.TestCase):
         self.assertEqual(self.customer1.get_customer_last_name(), 'cohen')
         self.assertEqual(self.customer1.get_email(), 'noam.noam@gmail.com')
         self.assertEqual(self.customer1.get_birth_day(), '06.02.1983')
-        self.assertEqual(self.customer1.set_email('noamcohen@gmail.com'), 'noamcohen@gmail.com')
+        self.assertIsNone(self.customer1.set_email('noamcohen@gmail.com'))
+        self.assertRaises(exception.NotValidEmail, self.customer1.set_email, 'noamnoamgmail.com')
 
 
     def test_start_library(self):
