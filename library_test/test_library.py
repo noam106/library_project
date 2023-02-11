@@ -6,7 +6,7 @@ from frontend import input_function
 
 class CustomerClassTest(unittest.TestCase):
     def setUp(self) -> None:
-        customer1 = library_backend.library_class.Customer('123456789', {"last_name": "cohen",
+        self.customer1 = library_backend.library_class.Customer('123456789', {"last_name": "cohen",
                                                                          "first_name": "noam"},
                                                            address_class.Address('lehi', "ofkim", '80300', "11")
                                                            , "noam.noam@gmail.com", '06.02.1983')
@@ -15,7 +15,10 @@ class CustomerClassTest(unittest.TestCase):
         pass
 
     def test_customer_class(self):
-        self.assertEqual(self.customer)
+        self.assertEqual(self.customer1.get_customer_id(), '123456789')
+        self.assertEqual(self.customer1.get_customer_first_name(), 'noam')
+        self.assertEqual(self.customer1.get_customer_last_name(), 'cohen')
+        self.assertEqual(self.customer1.)
 
 
     def test_start_library(self):
