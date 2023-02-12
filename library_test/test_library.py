@@ -25,6 +25,37 @@ class CustomerClassTest(unittest.TestCase):
         self.assertRaises(exception.NotValidEmail, self.customer1.set_email, 'noamnoamgmail.com')
 
 
+class BookClassTest(unittest.TestCase):
+
+    def setUp(self) -> None:
+        self.book1 = (library_backend.library_class.Book('123456789', 'orphan x', {'first_name': 'gregg',
+                                                                                   'last_name': 'hurwitz'}, '2002', '3'))
+        self.book2 = (library_backend.library_class.Book('987654321', 'lost son', {'first_name': 'gregg',
+                                                                                   'last_name': 'hurwitz'}, '2019', '3'))
+        self.book3 = (library_backend.library_class.Book('963258741', 'orphan x', {'first_name': 'gregg',
+                                                                                   'last_name': 'hurwitz'}, '2002', '2'))
+        self.book4 = (library_backend.library_class.Book('741852963', 'enders game', {'first_name': 'orson',
+                                                                                      'last_name': 'scott card'},
+                                                         '1994', '1'))
+
+    def tearDown(self) -> None:
+        pass
+
+    def test_book_class(self):
+        self.assertEqual(self.book1.get_book_id(), '123456789')
+        self.assertEqual(self.book4.get_book_name(), 'enders game')
+        self.assertEqual(self.book3.get_author_first_name(), 'gregg')
+        self.assertEqual(self.book2.get_author_last_name(), 'hurwitz')
+        self.assertEqual(self.book2.get_type_of_loan(), '3')
+        self.assertEqual(self.book3.get_year_published(), '2002')
+
+
+class LoanClassTest(unittest.TestCase):
+
+    def setUp(self) -> None:
+
+
+
     def test_start_library(self):
         result = input_function.start_library()
         self.assertIs(type(result), library_backend.library_class.Library)
