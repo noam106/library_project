@@ -1,3 +1,4 @@
+import datetime
 import unittest
 from library_backend import address_class
 import library_backend.library_class
@@ -28,15 +29,15 @@ class CustomerClassTest(unittest.TestCase):
 class BookClassTest(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.book1 = (library_backend.library_class.Book('123456789', 'orphan x', {'first_name': 'gregg',
-                                                                                   'last_name': 'hurwitz'}, '2002', '3'))
-        self.book2 = (library_backend.library_class.Book('987654321', 'lost son', {'first_name': 'gregg',
-                                                                                   'last_name': 'hurwitz'}, '2019', '3'))
-        self.book3 = (library_backend.library_class.Book('963258741', 'orphan x', {'first_name': 'gregg',
-                                                                                   'last_name': 'hurwitz'}, '2002', '2'))
-        self.book4 = (library_backend.library_class.Book('741852963', 'enders game', {'first_name': 'orson',
+        self.book1 = library_backend.library_class.Book('123456789', 'orphan x', {'first_name': 'gregg',
+                                                                                   'last_name': 'hurwitz'}, '2002', '3')
+        self.book2 = library_backend.library_class.Book('987654321', 'lost son', {'first_name': 'gregg',
+                                                                                   'last_name': 'hurwitz'}, '2019', '3')
+        self.book3 = library_backend.library_class.Book('963258741', 'orphan x', {'first_name': 'gregg',
+                                                                                   'last_name': 'hurwitz'}, '2002', '2')
+        self.book4 = library_backend.library_class.Book('741852963', 'enders game', {'first_name': 'orson',
                                                                                       'last_name': 'scott card'},
-                                                         '1994', '1'))
+                                                         '1994', '1')
 
     def tearDown(self) -> None:
         pass
@@ -53,7 +54,13 @@ class BookClassTest(unittest.TestCase):
 class LoanClassTest(unittest.TestCase):
 
     def setUp(self) -> None:
+        self.loan1 = library_backend.library_class.Loan("123456789", '987654321', datetime.datetime.now(), '2')
 
+    def tearDown(self) -> None:
+        pass
+
+    def test_loan_class(self):
+        pass
 
 
     def test_start_library(self):

@@ -1,10 +1,10 @@
 import datetime
 
 
-def time_loan_2_max_days(loan_type: int) -> datetime:
-    if loan_type == 1:
+def time_loan_2_max_days(loan_type: str) -> datetime:
+    if loan_type == '1':
         max_time_loan = datetime.timedelta(days=10)
-    elif loan_type == 2:
+    elif loan_type == '2':
         max_time_loan = datetime.timedelta(days=5)
     else:
         max_time_loan = datetime.timedelta(days=2)
@@ -12,7 +12,7 @@ def time_loan_2_max_days(loan_type: int) -> datetime:
 
 
 class Loan:
-    def __init__(self, costumer_id: str, book_id: str, loan_date: datetime, loan_type: int):
+    def __init__(self, costumer_id: str, book_id: str, loan_date: datetime, loan_type: str):
         self._costumer_id = costumer_id
         self._book_id = book_id
         self._loan_date = loan_date
