@@ -54,13 +54,46 @@ class BookClassTest(unittest.TestCase):
 class LoanClassTest(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.loan1 = library_backend.library_class.Loan("123456789", '987654321', datetime.datetime.now(), '2')
+        self.loan_date = datetime.datetime.now()
+        self.loan_date_return = self.loan_date + datetime.timedelta(days=6)
+        self.loan1 = library_backend.library_class.Loan("123456789", '987654321', self.loan_date, '2')
 
     def tearDown(self) -> None:
         pass
 
     def test_loan_class(self):
-        pass
+        self.assertEqual(self.loan1.get_loan_date(), self.loan_date)
+        self.assertEqual(self.loan1.get_book_id(), '987654321')
+        self.assertEqual(self.loan1.get_customer(), '123456789')
+        self.assertEqual(self.loan1.get_max_return_date(), self.loan_date_return)
+        self.assertIsNone(self.loan1.get_return_date())
+
+
+class LibraryClassTest(unittest.TestCase):
+
+    def setUp(self) -> None:
+        self.library_1 = library_backend.library_class.Library('monty python', 'beer sheva')
+        self.loan_date = datetime.datetime.now()
+        self.loan_date_return = self.loan_date + datetime.timedelta(days=6)
+        self.loan1 = library_backend.library_class.Loan("123456789", '987654321', self.loan_date, '2')
+        self.book1 = library_backend.library_class.Book('123456789', 'orphan x', {'first_name': 'gregg',
+                                                                                  'last_name': 'hurwitz'}, '2002', '3')
+        self.book2 = library_backend.library_class.Book('987654321', 'lost son', {'first_name': 'gregg',
+                                                                                  'last_name': 'hurwitz'}, '2019', '3')
+        self.book3 = library_backend.library_class.Book('963258741', 'orphan x', {'first_name': 'gregg',
+                                                                                  'last_name': 'hurwitz'}, '2002', '2')
+        self.book4 = library_backend.library_class.Book('741852963', 'enders game', {'first_name': 'orson',
+                                                                                     'last_name': 'scott card'},
+                                                        '1994', '1')
+        self.customer1 = library_backend.library_class.Customer('123456789', {"last_name": "cohen",
+                                                                              "first_name": "noam"},
+                                                                address_class.Address('lehi', "ofkim", '80300', "11")
+                                                                , "noam.noam@gmail.com", '06.02.1983')
+
+    def test_library(self):
+        self.assertTrue(self.library_1.add_book(self.book1))
+        self.assertTrue(self.library_1.add_customer(self.customer1))
+
 
 
     def test_start_library(self):

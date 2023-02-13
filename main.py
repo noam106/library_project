@@ -33,30 +33,31 @@ if __name__ == '__main__':
             elif user_choice == "1":
                 user_add_choice = input_function.add_choice()
                 while True:
-                    book = input_function.add_a_book()
                     if user_add_choice == '1':
-                        while True:
-                            try:
-                                library.add_book(book)
-                                print('All good, the has enter the library.')
-                                break
-                            except exception.BookExistsError(book.get_book_id()) as e:
-                                print(f'The book ID {e} is already in the system try again: ')
-                            except exception.LibraryException as e:
-                                print('something went wrong please try again')
+                        book = input_function.add_a_book()
+                        try:
+                            library.add_book(book)
+                            print('All good, the has enter the library.')
+                            user_choice = None
+                            break
+                        except exception.BookExistsError(book.get_book_id()) as e:
+                            print(f'The book ID {e} is already in the system try again: ')
+                        except exception.LibraryException as e:
+                            print('something went wrong please try again')
                     elif user_add_choice == '2':
                         customer_address = input_function.create_address()
-                        while True:
-                            customer = input_function.create_customer(customer_address)
-                            try:
-                                library.add_customer(customer)
-                                print('All good, the has enter the library.')
-                                break
-                            except exception.CustomerExistsError(customer.get_customer_id()) as e:
-                                print(f'The customer ID {e} is already in the system try again: ')
-                            except exception.LibraryException as e:
-                                print('something went wrong please try again')
+                        customer = input_function.create_customer(customer_address)
+                        try:
+                            library.add_customer(customer)
+                            print('All good, the has enter the library.')
+                            user_choice = None
+                            break
+                        except exception.CustomerExistsError(customer.get_customer_id()) as e:
+                            print(f'The customer ID {e} is already in the system try again: ')
+                        except exception.LibraryException as e:
+                            print('something went wrong please try again')
                     elif user_add_choice == "#":
+                        user_choice = None
                         break
             elif user_choice == "2":
                 user_loan_choice = input_function.loan_choice()

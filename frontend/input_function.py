@@ -135,7 +135,7 @@ def loan_choice() -> str:
     while True:
         user_loan_choice = input('To loan a book insert 1: \n'
                                  'To return a book insert 2: ')
-        if user_loan_choice not in ("1", "2," '#'):
+        if user_loan_choice not in ("1", "2", '#'):
             print('Your can only choose between 1 or 2. Try again ')
         else:
             break
@@ -149,7 +149,7 @@ def add_choice():
                             'To add a book insert 1\n'
                             'To add a customer insert 2:\n'
                             '')
-        if user_choice not in ("1", "2," '#'):
+        if user_choice not in ("1", "2", '#'):
             print('Your can only choose between 1 or 2. Try again ')
         else:
             break
@@ -162,7 +162,7 @@ def find_choice():
         user_choice = input(('To find a book by his name insert 1:\n'
                              'To find a book by his author insert 2:\n'
                              ''))
-        if user_choice not in ("1", "2," '#'):
+        if user_choice not in ("1", "2", '#'):
             print(print('Your can only choose between 1 or 2. Try again '))
         else:
             break
