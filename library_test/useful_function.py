@@ -3,6 +3,7 @@ import datetime
 from library_backend import customer_code
 from library_backend import address_class
 from library_backend import exception
+import time
 
 
 def isvalid_email(email) -> bool:
@@ -39,6 +40,11 @@ def is_str_valid(str_to_check: str):
         return True
     else:
         return False
+
+
+def let_me_read(sec):
+    time.sleep(sec)
+
 
 
 # def create_address():

@@ -1,8 +1,9 @@
 import pickle
 import os
-
+import time
 import frontend.input_function
 import library_backend
+import library_test.useful_function
 from frontend import *
 from frontend import input_function
 from library_backend import exception
@@ -40,10 +41,14 @@ if __name__ == '__main__':
                             print('All good, the has enter the library.')
                             user_choice = None
                             break
-                        except exception.BookExistsError(book.get_book_id()) as e:
+                        except exception.BookExistsError as e:
                             print(f'The book ID {e} is already in the system try again: ')
+                            library_test.useful_function.let_me_read(3)
+                            break
                         except exception.LibraryException as e:
                             print('something went wrong please try again')
+                            library_test.useful_function.let_me_read(3)
+                            break
                     elif user_add_choice == '2':
                         customer_address = input_function.create_address()
                         customer = input_function.create_customer(customer_address)
@@ -52,10 +57,14 @@ if __name__ == '__main__':
                             print('All good, the has enter the library.')
                             user_choice = None
                             break
-                        except exception.CustomerExistsError(customer.get_customer_id()) as e:
+                        except exception.CustomerExistsError as e:
                             print(f'The customer ID {e} is already in the system try again: ')
+                            library_test.useful_function.let_me_read(3)
+                            break
                         except exception.LibraryException as e:
                             print('something went wrong please try again')
+                            library_test.useful_function.let_me_read(3)
+                            break
                     elif user_add_choice == "#":
                         user_choice = None
                         break
@@ -68,19 +77,29 @@ if __name__ == '__main__':
                         try:
                             library.loan_book(book_id_loan, customer_id_loan)
                             print('Enjoy your reading, dont forget to return in time.')
+                            library_test.useful_function.let_me_read(3)
                             break
-                        except exception.CustomerExistsError(customer_id_loan) as e:
+                        except exception.CustomerExistsError as e:
                             print(f'The customer ID {e} is not in the system try again: ')
-                        except exception.BookExistsError(book_id_loan) as e:
+                            library_test.useful_function.let_me_read(3)
+                            break
+                        except exception.BookExistsError as e:
                             print(f'The book ID number dose not exists, try again: ')
-                        except exception.BookAlreadyLoaned(book_id_loan) as e:
+                            library_test.useful_function.let_me_read(3)
+                            break
+                        except exception.BookAlreadyLoaned as e:
                             print('The book is already loaned, you cant loaned it!!! ')
-                        except exception.LateReturnPunishment(customer_id_loan) as e:
+                            library_test.useful_function.let_me_read(3)
+                            break
+                        except exception.LateReturnPunishment as e:
                             print(f'Dear {library.get_customer_by_id(customer_id_loan).get_customer_first_name()}'
                                   f' you were late to return your latest loaned book therefore you cant loan this'
                                   f' book. You got punished and i got the BONUS!!! ')
+                            library_test.useful_function.let_me_read(5)
                         except exception.LibraryException() as e:
                             print('something went wrong please try again')
+                            library_test.useful_function.let_me_read(3)
+                            break
                 elif user_loan_choice == '2':
                     while True:
                         book_id_return = None
@@ -89,14 +108,20 @@ if __name__ == '__main__':
                             library.return_book(book_id_return)
                             print('book returned!')
                             break
-                        except exception.BookExistsError(book_id_return) as e:
+                        except exception.BookExistsError as e:
                             print(f'Book number{e} is not loaned, so.... you cant return it.')
-                        except exception.LateReturnPunishment(book_id_return) as e:
+                            library_test.useful_function.let_me_read(3)
+                            break
+                        except exception.LateReturnPunishment as e:
                             print('Customer returned book LATE!!! Unlease the librarian in you and kill him.'
                                   'Just kidding you cant loan another book for thr next two weeks.'
                                   'You got punish and i got the BONUS!!!')
+                            library_test.useful_function.let_me_read(5)
+                            break
                         except exception.LibraryException() as e:
                             print('something went wrong please try again')
+                            library_test.useful_function.let_me_read(3)
+                            break
                     if user_loan_choice == "#":
                         break
             elif user_choice == "3":
@@ -117,10 +142,14 @@ if __name__ == '__main__':
                         try:
                             print(library.display_customer_loans(customer_id_display_loan))
                             break
-                        except exception.CustomerExistsError(customer_id=customer_id_display_loan) as e:
-                            print(f'The customer ID number {e} dos not exist in our recorde')
+                        except exception.CustomerExistsError as e:
+                            print(f'The customer ID number {e} dose not exist in our recorde')
+                            library_test.useful_function.let_me_read(3)
+                            break
                         except exception.LibraryException() as e:
                             print('something went wrong try again: ')
+                            library_test.useful_function.let_me_read(3)
+                            break
             elif user_choice == "4":
                 user_remove_choice = input_function.remove_option()
                 if user_remove_choice == "1":
@@ -130,10 +159,14 @@ if __name__ == '__main__':
                             library.remove_book_from_library(book_id_remove)
                             print('Book removed all is good "YUFI TUFI')
                             break
-                        except exception.BookExistsError(book_id_remove) as e:
+                        except exception.BookExistsError as e:
                             print(f'The book ID number {e} dos not exist in our recorde')
+                            library_test.useful_function.let_me_read(3)
+                            break
                         except exception.LibraryException() as e:
                             print('something went wrong try again: ')
+                            library_test.useful_function.let_me_read(3)
+                            break
                 elif user_remove_choice == "2":
                     while True:
                         customer_id_remove = input_function.customer_id_valid()
@@ -141,12 +174,18 @@ if __name__ == '__main__':
                             library.remove_customer(customer_id_remove)
                             print('Customer removed "No more soup for you"')
                             break
-                        except exception.CustomerExistsError(customer_id_remove) as e:
+                        except exception.CustomerExistsError as e:
                             print(f'The customer ID number {e} dos not exist in our recorde')
-                        except exception.CantRemoveCustomer(customer_id_remove) as e:
+                            library_test.useful_function.let_me_read(3)
+                            break
+                        except exception.CantRemoveCustomer as e:
                             print(f'The customer ID number {e} have a loaned book, he cant be removed.')
+                            library_test.useful_function.let_me_read(3)
+                            break
                         except exception.LibraryException() as e:
                             print('something went wrong try again: ')
+                            library_test.useful_function.let_me_read(3)
+                            break
                 else:
                     break
             elif user_choice == "5":

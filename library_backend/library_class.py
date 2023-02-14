@@ -87,11 +87,11 @@ class Library:
     def loan_book(self, book_id: str, customer_id: str) -> bool:
         if book_id in self._loans:
             raise exception.BookAlreadyLoaned(book_id)
-        if customer_id not in self._costumers:
+        elif customer_id not in self._costumers:
             raise exception.CustomerExistsError(customer_id)
-        if book_id not in self._books:
+        elif book_id not in self._books:
             raise exception.BookExistsError(book_id)
-        if customer_id in self._late_returned_loan:
+        elif customer_id in self._late_returned_loan:
             for loan in self._returned_loans[customer_id]:
                 if loan.get_return_date() + datetime.timedelta(weeks=2) > datetime.datetime.now():
                     raise exception.LateReturnPunishment(customer_id)

@@ -97,8 +97,10 @@ class LibraryClassTest(unittest.TestCase):
 
 
     def test_start_library(self):
+        self.library_1.add_book(self.book1)
         result = input_function.start_library()
         self.assertIs(type(result), library_backend.library_class.Library)
+        self.assertRaises(BookAlreadyLoaned, Library.loan_book, self.library_1, self.book1)
 
 
 
