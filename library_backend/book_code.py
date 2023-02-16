@@ -17,7 +17,7 @@ class Book:
         return f'{self._book_name} by {self._author["last_name"]}, {self._author["first_name"]}'
 
     def __repr__(self):
-        return self._book_name, self._author
+        return self._book_id
 
     def get_type_of_loan(self):
         return self._type_of_loan

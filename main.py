@@ -19,6 +19,8 @@ if __name__ == '__main__':
         library = frontend.input_function.start_library()
     try:
         while True:
+            # print(library.get_loaned_book())
+            # print(library.get_books())
             # try:
             print('In any time you wish to leave the program insert: "#"')
             user_choice = input('What would you like to do?\n'

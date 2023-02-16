@@ -58,7 +58,7 @@ class Library:
     def get_customer_by_last_name(self, customer_last_name) -> list[Customer]:
         ret_val = []
         for customer_id, customer in self._costumers.items():
-            if customer.get_customer_first_name() == customer_last_name:
+            if customer.get_customer_last_name() == customer_last_name:
                 ret_val.append(customer)
         return ret_val
 

@@ -17,8 +17,8 @@ class Customer:
     def __str__(self):
         return f'{self._customer_name["last_name"]} {self._customer_name["first_name"]}, id number: {self._customer_id}'
 
-    def __repr__(self):
-        return self._customer_id, self._customer_name
+    # def __repr__(self):
+    #     return self._customer_id, self._customer_name
 
     def get_birth_day(self):
         return self._birth_day

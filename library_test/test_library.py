@@ -55,7 +55,7 @@ class LoanClassTest(unittest.TestCase):
 
     def setUp(self) -> None:
         self.loan_date = datetime.datetime.now()
-        self.loan_date_return = self.loan_date + datetime.timedelta(days=6)
+        self.loan_date_return = self.loan_date + datetime.timedelta(days=5)
         self.loan1 = library_backend.library_class.Loan("123456789", '987654321', self.loan_date, '2')
 
     def tearDown(self) -> None:
@@ -89,18 +89,35 @@ class LibraryClassTest(unittest.TestCase):
                                                                               "first_name": "noam"},
                                                                 address_class.Address('lehi', "ofkim", '80300', "11")
                                                                 , "noam.noam@gmail.com", '06.02.1983')
+        self.customer2 = library_backend.library_class.Customer('123456789', {"last_name": "cohen",
+                                                                              "first_name": "noam"},
+                                                                address_class.Address('lehi', "ofkim", '80300', "11")
+                                                                , "noam.noam@gmail.com", '06.02.1983')
 
     def test_library(self):
         self.assertTrue(self.library_1.add_book(self.book1))
+        self.assertTrue(self.library_1.add_book(self.book3))
         self.assertTrue(self.library_1.add_customer(self.customer1))
 
     def test_start_library(self):
         self.library_1.add_book(self.book1)
+        self.library_1.add_book(self.book3)
         self.library_1.add_customer(self.customer1)
+
         result = input_function.start_library()
         self.assertIs(type(result), library_backend.library_class.Library)
         # self.assertRaises(BookAlreadyLoaned, Library.loan_book, self.library_1, self.book1)
-        self.assertTrue(self.library_1.loan_book('123456789', '123456789'))
+        # self.assertTrue(self.library_1.loan_book('123456789', '123456789'))
+        self.assertEqual(self.library_1.get_book_by_name('orphan x'), [self.book1, self.book3])
+        self.assertEqual(self.library_1.get_books(), {'123456789': self.book1,
+                                                      '963258741': self.book3})
+        self.assertEqual(self.library_1.get_book_by_author_first_name('gregg'), [self.book1, self.book3])
+        self.assertEqual(self.library_1.get_book_by_author_last_name('hurwitz'), [self.book1, self.book3])
+        self.assertEqual(self.library_1.get_customer_dict(), {'123456789': self.customer1})
+        self.assertEqual(self.library_1.get_customer_by_id('123456789'), self.customer1)
+        self.assertEqual(self.library_1.get_customer_by_first_name('noam'), [self.customer1])
+        self.assertEqual(self.library_1.get_customer_by_last_name('cohen'), [self.customer1])
+        self.assertRaises(exception.CustomerExistsError(self.customer2.get_customer_id()), self.library_1.add_customer, self.customer2)
 
 
 

@@ -44,7 +44,7 @@ class NotValidDate(LibraryException):
         self._date_string = date_str
 
 
-class NotValidEmail(LibraryException):
+class  NotValidEmail(LibraryException):
     pass
 
 
