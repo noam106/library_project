@@ -94,13 +94,14 @@ class LibraryClassTest(unittest.TestCase):
         self.assertTrue(self.library_1.add_book(self.book1))
         self.assertTrue(self.library_1.add_customer(self.customer1))
 
-
-
     def test_start_library(self):
         self.library_1.add_book(self.book1)
+        self.library_1.add_customer(self.customer1)
         result = input_function.start_library()
         self.assertIs(type(result), library_backend.library_class.Library)
-        self.assertRaises(BookAlreadyLoaned, Library.loan_book, self.library_1, self.book1)
+        # self.assertRaises(BookAlreadyLoaned, Library.loan_book, self.library_1, self.book1)
+        self.assertTrue(self.library_1.loan_book('123456789', '123456789'))
+
 
 
 
