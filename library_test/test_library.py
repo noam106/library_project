@@ -113,6 +113,13 @@ class LibraryClassTest(unittest.TestCase):
         self.assertIs(type(result), library_backend.library_class.Library)
         # self.assertRaises(BookAlreadyLoaned, Library.loan_book, self.library_1, self.book1)
         # self.assertTrue(self.library_1.loan_book('123456789', '123456789'))
+        # self.assertEqual(self.library_1.display_all_loans(), {'loaned': [self.book1],
+        #                                                       'late returned': [],
+        #                                                       'returned': []})
+        # self.assertTrue(self.library_1.return_book('123456789'))
+        # self.assertEqual(self.library_1.display_all_loans(), {'loaned': [],
+        #                                                       'late returned': [],
+        #                                                       'returned': [[self.book1]]})
         self.assertEqual(self.library_1.get_book_by_name('orphan x'), [self.book1, self.book3])
         self.assertEqual(self.library_1.get_books(), {'123456789': self.book1,
                                                       '963258741': self.book3})
@@ -128,6 +135,10 @@ class LibraryClassTest(unittest.TestCase):
         self.assertRaises(exception.BookExistsError, self.library_1.add_book, self.book1)
         self.assertTrue(self.library_1.add_book(self.book2))
         self.assertIn(self.book2, self.library_1.get_book_by_name('lost son'))
+        self.assertEqual(self.library_1.display_all_books(), [self.book1, self.book3, self.book2])
+        self.assertEqual(self.library_1.display_all_customer(), [self.customer1, self.customer3])
+
+
 
 
 
