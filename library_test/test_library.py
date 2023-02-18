@@ -112,7 +112,7 @@ class LibraryClassTest(unittest.TestCase):
         result = input_function.start_library()
         self.assertIs(type(result), library_backend.library_class.Library)
         # self.assertRaises(BookAlreadyLoaned, Library.loan_book, self.library_1, self.book1)
-        # self.assertTrue(self.library_1.loan_book('123456789', '123456789'))
+        self.assertTrue(self.library_1.loan_book('123456789', '123456789'))
         # self.assertEqual(self.library_1.display_all_loans(), {'loaned': [self.book1],
         #                                                       'late returned': [],
         #                                                       'returned': []})
@@ -129,7 +129,7 @@ class LibraryClassTest(unittest.TestCase):
         self.assertEqual(self.library_1.get_customer_by_id('123456789'), self.customer1)
         self.assertEqual(self.library_1.get_customer_by_first_name('noam'), [self.customer1])
         self.assertEqual(self.library_1.get_customer_by_last_name('cohen'), [self.customer1])
-        # self.assertRaises(exception.CustomerExistsError, library_backend.library_class.Library.add_customer, self.library_1, self.customer2)
+        self.assertRaises(exception.CustomerExistsError, library_backend.library_class.Library.add_customer, self.library_1, self.customer2)
         self.assertTrue(self.library_1.add_customer(self.customer3))
         self.assertEqual(self.library_1.get_customer_by_last_name('cohen'), [self.customer1, self.customer3])
         self.assertRaises(exception.BookExistsError, self.library_1.add_book, self.book1)

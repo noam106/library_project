@@ -70,7 +70,7 @@ class Library:
 
     def add_customer(self, customer: Customer):
         if customer.get_customer_id() in self._costumers:
-            raise exception.CustomerExistsError
+            raise exception.CustomerExistsError(customer.get_customer_id())
         else:
             self._costumers[customer.get_customer_id()] = customer
             self._returned_loans[customer.get_customer_id()] = []
@@ -91,11 +91,10 @@ class Library:
             raise exception.CustomerExistsError(customer_id)
         elif book_id not in self._books:
             raise exception.BookExistsError(book_id)
-        elif customer_id in self._late_returned_loan:
+        else:
             for loan in self._returned_loans[customer_id]:
                 if loan.get_return_date() + datetime.timedelta(weeks=2) > datetime.datetime.now():
                     raise exception.LateReturnPunishment(customer_id)
-        else:
             book_to_loan = Loan(customer_id, book_id, datetime.datetime.now(), self._books[book_id].get_type_of_loan())
             self._loans[book_id] = book_to_loan
             return True
