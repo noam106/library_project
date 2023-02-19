@@ -15,7 +15,7 @@ class Library:
         self._loans: dict[str, Loan] = {}
         self._returned_loans: dict[str, list[Loan]] = {}
         self._late_returned_loan:  dict[str, list[Loan]] = {}
-        self._costumer2loan: dict[str, set[Loan]] = {}
+        self._costumer2loan: dict[str, list[Loan]] = {}
 
     def get_books(self):
         return self._books
@@ -68,6 +68,19 @@ class Library:
     def get_address(self):
         return self._address
 
+    def get_customer2loan(self, customer_id: str) -> dict:
+        if customer_id not in self._costumers:
+            raise exception.CustomerExistsError(customer_id)
+        self._costumer2loan[customer_id] = []
+        for customer in self._loans.values():
+            if customer.get_customer() == customer_id:
+                self._costumer2loan[customer_id].append(customer)
+        for customer_late in self._late_returned_loan[customer_id]:
+            self._costumer2loan[customer_id].append(customer_late)
+        for customer_ret in self._returned_loans[customer_id]:
+            self._costumer2loan[customer_id].append(customer_ret)
+        return self._costumer2loan
+
     def add_customer(self, customer: Customer):
         if customer.get_customer_id() in self._costumers:
             raise exception.CustomerExistsError(customer.get_customer_id())
@@ -97,6 +110,7 @@ class Library:
                     raise exception.LateReturnPunishment(customer_id)
             book_to_loan = Loan(customer_id, book_id, datetime.datetime.now(), self._books[book_id].get_type_of_loan())
             self._loans[book_id] = book_to_loan
+
             return True
 
     def return_book(self, book_id: str):

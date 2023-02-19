@@ -170,7 +170,7 @@ def find_choice():
 
 
 def find_by_first_or_last_name(search_value: str) -> str:
-    print(f'You can find the {search_value} by entering author first name of last.')
+    print(f'You can find the {search_value} by entering author first name or last.')
     while True:
         search_result = input(f'Enter {search_value} first name of last: ').lower()
         if library_test.useful_function.is_str_valid(search_result) is False:

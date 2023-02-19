@@ -19,9 +19,6 @@ if __name__ == '__main__':
         library = frontend.input_function.start_library()
     try:
         while True:
-            # print(library.get_loaned_book())
-            # print(library.get_books())
-            # try:
             print('In any time you wish to leave the program insert: "#"')
             user_choice = input('What would you like to do?\n'
                                 'To add a new customer or new book insert "1"\n'
@@ -120,7 +117,7 @@ if __name__ == '__main__':
                                   'You got punish and i got the BONUS!!!')
                             library_test.useful_function.let_me_read(5)
                             break
-                        except exception.LibraryException() as e:
+                        except exception.LibraryException as e:
                             print('something went wrong please try again')
                             library_test.useful_function.let_me_read(3)
                             break
@@ -148,7 +145,7 @@ if __name__ == '__main__':
                             print(f'The customer ID number {e} dose not exist in our recorde')
                             library_test.useful_function.let_me_read(3)
                             break
-                        except exception.LibraryException() as e:
+                        except exception.LibraryException as e:
                             print('something went wrong try again: ')
                             library_test.useful_function.let_me_read(3)
                             break
@@ -165,7 +162,7 @@ if __name__ == '__main__':
                             print(f'The book ID number {e} dos not exist in our recorde')
                             library_test.useful_function.let_me_read(3)
                             break
-                        except exception.LibraryException() as e:
+                        except exception.LibraryException as e:
                             print('something went wrong try again: ')
                             library_test.useful_function.let_me_read(3)
                             break
@@ -184,7 +181,7 @@ if __name__ == '__main__':
                             print(f'The customer ID number {e} have a loaned book, he cant be removed.')
                             library_test.useful_function.let_me_read(3)
                             break
-                        except exception.LibraryException() as e:
+                        except exception.LibraryException as e:
                             print('something went wrong try again: ')
                             library_test.useful_function.let_me_read(3)
                             break
@@ -197,29 +194,43 @@ if __name__ == '__main__':
                     while True:
                         if len(library.get_book_by_name(book_num_to_find)) == 0:
                             print('There are no books under that name:')
+                            library_test.useful_function.let_me_read(3)
+                            break
                         else:
                             print(library.get_book_by_name(book_num_to_find))
+                            library_test.useful_function.let_me_read(3)
+                            break
                 elif user_find_choice == '2':
                     name_to_find = input_function.find_by_first_or_last_name('author')
-                    if len(library.get_book_by_author_first_name(name_to_find)) == 0 \
-                            and len(library.get_book_by_author_last_name(name_to_find)) == 0:
-                        print('There are no books under that author name.')
-                    else:
-                        print(f'result by first name:\n{library.get_book_by_author_first_name(name_to_find)}\n'
-                              f'result by last name: \n{library.get_book_by_author_last_name(name_to_find)}')
+                    while True:
+                        if len(library.get_book_by_author_first_name(name_to_find)) == 0 \
+                                and len(library.get_book_by_author_last_name(name_to_find)) == 0:
+                            print('There are no books under that author name.')
+                            library_test.useful_function.let_me_read(3)
+                            break
+                        else:
+                            print(f'result by first name:\n{library.get_book_by_author_first_name(name_to_find)}\n'
+                                  f'result by last name: \n{library.get_book_by_author_last_name(name_to_find)}')
+                            library_test.useful_function.let_me_read(3)
+                            break
                 else:
                     break
             elif user_choice == '6':
                 customer_to_find = input_function.find_by_first_or_last_name('customer')
-                if len(library.get_book_by_author_first_name(customer_to_find)) == 0 \
-                        and len(library.get_book_by_author_last_name(customer_to_find)) == 0:
-                    print('There are no books under that author name.')
-                else:
-                    print(f'result by first name:\n{library.get_book_by_author_first_name(customer_to_find)}\n'
-                          f'result by last name: \n{library.get_book_by_author_last_name(customer_to_find)}')
+                while True:
+                    if len(library.get_customer_by_first_name(customer_to_find)) == 0 \
+                            and len(library.get_customer_by_last_name(customer_to_find)) == 0:
+                        print('There are no customer under that name.')
+                        library_test.useful_function.let_me_read(3)
+                        break
+                    else:
+                        print(f'result by first name:\n{library.get_customer_by_first_name(customer_to_find)}\n'
+                              f'result by last name: \n{library.get_customer_by_last_name(customer_to_find)}')
+                        library_test.useful_function.let_me_read(3)
+                        break
             else:
                 break
-    except exception.LibraryException() as e:
+    except exception.LibraryException as e:
         print("error occurred, saving and exiting")
     finally:
         with open('library.pickle', 'wb') as f:
