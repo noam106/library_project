@@ -148,7 +148,7 @@ class Library:
 
     def display_customer_loans(self, customer_id: str):
         if customer_id not in self._costumers:
-            raise exception.CustomerExistsError
+            raise exception.CustomerExistsError(customer_id)
         else:
             all_customer_loans_list = []
             loans = self._costumer2loan[customer_id]

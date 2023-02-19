@@ -75,7 +75,7 @@ class LibraryClassTest(unittest.TestCase):
     def setUp(self) -> None:
         self.library_1 = library_backend.library_class.Library('monty python', 'beer sheva')
         self.loan_date = datetime.datetime.now()
-        self.loan_date_return = self.loan_date + datetime.timedelta(days=6)
+        self.loan_date_return = self.loan_date + datetime.timedelta(days=4)
         self.loan1 = library_backend.library_class.Loan("123456789", '987654321', self.loan_date, '2')
         self.book1 = library_backend.library_class.Book('123456789', 'orphan x', {'first_name': 'gregg',
                                                                                   'last_name': 'hurwitz'}, '2002', '3')
@@ -113,7 +113,8 @@ class LibraryClassTest(unittest.TestCase):
         self.assertIs(type(result), library_backend.library_class.Library)
         # self.assertRaises(BookAlreadyLoaned, Library.loan_book, self.library_1, self.book1)
         self.assertTrue(self.library_1.loan_book('123456789', '123456789'))
-        # self.assertEqual(self.library_1.display_all_loans(), {'loaned': [self.book1],
+        self.assertEqual(self.library_1.loan_book(self.loan1.get_customer(), self.loan1.get_book_id()), self.loan1)
+        # self.assertEqual(self.library_1.display_all_loans(), {'loaned': [library_backend.loan_code],
         #                                                       'late returned': [],
         #                                                       'returned': []})
         # self.assertTrue(self.library_1.return_book('123456789'))
